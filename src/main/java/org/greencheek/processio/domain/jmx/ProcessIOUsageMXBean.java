@@ -24,14 +24,21 @@ import org.greencheek.processio.domain.ProcessIO;
  */
 public interface ProcessIOUsageMXBean {
     ProcessIO getProcessIO();
-    double getTimeSliceKbPerSecondForReadIO();
-    double getTimeSliceKbPerSecondForWriteIO();
-    double getTimeSliceMbPerSecondForReadIO();
-    double getTimeSliceMbPerSecondForWriteIO();
 
-    double getRunningTimeKbPerSecondForReadIO();
-    double getRunningTimeKbPerSecondForWriteIO();
-    double getRunningTimeMbPerSecondForReadIO();
-    double getRunningTimeMbPerSecondForWriteIO();
+    public double getSampleTimeKbPerSecondReadIO();
+
+    public double getSampleTimeKbPerSecondWriteIO();
+
+    public double getSampleTimeMbPerSecondReadIO();
+
+    public double getSampleTimeMbPerSecondWriteIO();
+
+    public double getAccumulatedKbPerSecondReadIO();
+
+    public double getAccumulatedKbPerSecondWriteIO();
+
+    public double getAccumulatedMbPerSecondReadIO();
+
+    public double getAccumulatedMbPerSecondWriteIO();
 
 }

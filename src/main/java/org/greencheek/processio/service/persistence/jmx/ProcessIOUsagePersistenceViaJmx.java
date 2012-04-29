@@ -16,9 +16,8 @@
 package org.greencheek.processio.service.persistence.jmx;
 
 import org.greencheek.processio.domain.CurrentProcessIO;
-import org.greencheek.processio.domain.ProcessIO;
 import org.greencheek.processio.domain.jmx.ProcessIOUsageHolder;
-import org.greencheek.processio.service.ProcessIOUsageCalculator;
+import org.greencheek.processio.service.usage.ProcessIOUsage;
 import org.greencheek.processio.service.persistence.ProcessIOUsagePersistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,19 +56,21 @@ public class ProcessIOUsagePersistenceViaJmx implements ProcessIOUsagePersistenc
     private final ObjectName jmxRegisteredObjectName;
 
 
-    public ProcessIOUsagePersistenceViaJmx(ProcessIOUsageCalculator ioUsageCalculator) {
-        this(ioUsageCalculator,DEFAULT_JMX_OBJECT_NAME,DEFAULT_COMPOSED_JMX_BEAN_NAME);
+    public ProcessIOUsagePersistenceViaJmx(ProcessIOUsage ioUsage) {
+        this(ioUsage,DEFAULT_JMX_OBJECT_NAME,DEFAULT_COMPOSED_JMX_BEAN_NAME);
     }
 
-    public ProcessIOUsagePersistenceViaJmx(ProcessIOUsageCalculator ioUsageCalculator, ObjectName jmxObjectName,
+    public ProcessIOUsagePersistenceViaJmx(ProcessIOUsage ioUsage, ObjectName jmxObjectName,
                                            String beanObjectName) {
-        this.beanObjectNameStringRepresentation = beanObjectName;
 
-        ioUsageHolder = new ProcessIOUsageHolder(ioUsageCalculator);
+        ioUsageHolder = new ProcessIOUsageHolder(ioUsage);
 
         if (jmxObjectName == null) {
             log.error("Using Default ObjectName to register bean, the given object name ({}) could not be used. Registering under {}", beanObjectName, DEFAULT_COMPOSED_JMX_BEAN_NAME);
             jmxObjectName = DEFAULT_JMX_OBJECT_NAME;
+            beanObjectNameStringRepresentation = DEFAULT_COMPOSED_JMX_BEAN_NAME;
+        } else {
+            this.beanObjectNameStringRepresentation = beanObjectName;
         }
 
         boolean registered = false;
@@ -99,10 +100,10 @@ public class ProcessIOUsagePersistenceViaJmx implements ProcessIOUsagePersistenc
 
     }
 
-    public ProcessIOUsagePersistenceViaJmx(ProcessIOUsageCalculator ioUsageCalculator,
+    public ProcessIOUsagePersistenceViaJmx(ProcessIOUsage ioUsage,
                                            String jmxDomainName, String beanName) {
 
-        this(ioUsageCalculator,createObjectName(jmxDomainName,beanName),jmxDomainName+":type="+beanName);
+        this(ioUsage,createObjectName(jmxDomainName,beanName),jmxDomainName+":type="+beanName);
 
 
     }

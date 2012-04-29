@@ -17,8 +17,8 @@ package org.greencheek.processio.domain.jmx;
 
 import org.greencheek.processio.domain.CurrentProcessIO;
 import org.greencheek.processio.domain.ProcessIO;
-import org.greencheek.processio.service.BasicProcessIOUsageCalculator;
-import org.greencheek.processio.service.ProcessIOUsageCalculator;
+import org.greencheek.processio.service.usage.BasicProcessIOUsage;
+import org.greencheek.processio.service.usage.ProcessIOUsage;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -30,19 +30,19 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ProcessIOUsageHolder implements ProcessIOUsageMXBean {
 
     private final long startMillis;
-    private final ProcessIOUsageCalculator usageCalculator;
+    private final ProcessIOUsage usage;
     private final AtomicReference<ProcessIO> processIORef = new AtomicReference<ProcessIO>();
 
     public ProcessIOUsageHolder() {
-        this(System.currentTimeMillis(),new BasicProcessIOUsageCalculator());
+        this(System.currentTimeMillis(),new BasicProcessIOUsage());
     }
 
-    public ProcessIOUsageHolder(ProcessIOUsageCalculator usageCalculator) {
-        this(System.currentTimeMillis(),usageCalculator);
+    public ProcessIOUsageHolder(ProcessIOUsage usage) {
+        this(System.currentTimeMillis(), usage);
     }
 
-    public ProcessIOUsageHolder(long initialisationMillis,ProcessIOUsageCalculator usageCalculator) {
-        this.usageCalculator = usageCalculator;
+    public ProcessIOUsageHolder(long initialisationMillis,ProcessIOUsage usage) {
+        this.usage = usage;
         processIORef.set(new ProcessIO());
         this.startMillis = initialisationMillis;
     }
@@ -53,43 +53,43 @@ public class ProcessIOUsageHolder implements ProcessIOUsageMXBean {
     }
 
     @Override
-    public double getTimeSliceKbPerSecondForReadIO() {
-        return usageCalculator.getKbPerSecondReadIO(getProcessIO());
+    public double getSampleTimeKbPerSecondReadIO() {
+        return usage.getSampleTimeKbPerSecondReadIO(getProcessIO());
     }
 
     @Override
-    public double getTimeSliceKbPerSecondForWriteIO() {
-        return usageCalculator.getKbPerSecondWriteIO(getProcessIO());
+    public double getSampleTimeKbPerSecondWriteIO() {
+        return usage.getSampleTimeKbPerSecondWriteIO(getProcessIO());
     }
 
     @Override
-    public double getTimeSliceMbPerSecondForReadIO() {
-        return usageCalculator.getMbPerSecondReadIO(getProcessIO());
+    public double getSampleTimeMbPerSecondReadIO() {
+        return usage.getSampleTimeMbPerSecondReadIO(getProcessIO());
     }
 
     @Override
-    public double getTimeSliceMbPerSecondForWriteIO() {
-        return usageCalculator.getMbPerSecondWriteIO(getProcessIO());
+    public double getSampleTimeMbPerSecondWriteIO() {
+        return usage.getSampleTimeMbPerSecondWriteIO(getProcessIO());
     }
 
     @Override
-    public double getRunningTimeKbPerSecondForReadIO() {
-        return usageCalculator.getKbPerSecondReadIO(startMillis,getProcessIO());
+    public double getAccumulatedKbPerSecondReadIO() {
+        return usage.getAccumulatedKbPerSecondReadIO(startMillis, getProcessIO());
     }
 
     @Override
-    public double getRunningTimeKbPerSecondForWriteIO() {
-        return usageCalculator.getKbPerSecondWriteIO(startMillis,getProcessIO());
+    public double getAccumulatedKbPerSecondWriteIO() {
+        return usage.getAccumulatedKbPerSecondWriteIO(startMillis, getProcessIO());
     }
 
     @Override
-    public double getRunningTimeMbPerSecondForReadIO() {
-        return usageCalculator.getMbPerSecondReadIO(startMillis,getProcessIO());
+    public double getAccumulatedMbPerSecondReadIO() {
+        return usage.getAccumulatedMbPerSecondReadIO(startMillis, getProcessIO());
     }
 
     @Override
-    public double getRunningTimeMbPerSecondForWriteIO() {
-        return usageCalculator.getMbPerSecondWriteIO(startMillis,getProcessIO());
+    public double getAccumulatedMbPerSecondWriteIO() {
+        return usage.getAccumulatedMbPerSecondWriteIO(startMillis, getProcessIO());
     }
 
     public void setProcessIO(CurrentProcessIO io) {

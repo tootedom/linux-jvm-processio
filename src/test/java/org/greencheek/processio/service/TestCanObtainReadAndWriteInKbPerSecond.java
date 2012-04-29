@@ -16,6 +16,8 @@
 package org.greencheek.processio.service;
 
 import org.greencheek.processio.domain.ProcessIO;
+import org.greencheek.processio.service.usage.BasicProcessIOUsage;
+import org.greencheek.processio.service.usage.ProcessIOUsage;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,37 +32,35 @@ public class TestCanObtainReadAndWriteInKbPerSecond {
 
     private static final double DELTA = 1e-15;
 
-    private ProcessIO initialisedObject;
     private ProcessIO oneMbObject;
     private ProcessIO halfMbObject;
     private ProcessIO oneKbObject;
     private ProcessIO oneGbReadAndHalfGbWriteObject;
-    private ProcessIOUsageCalculator processIOUsageCalculator;
+    private ProcessIOUsage processIOUsage;
 
     @Before
     public void setUp() {
-        initialisedObject = new ProcessIO();
         oneMbObject  = new ProcessIO(0,0,0,1000,1024*1024,1024*1024);
         halfMbObject = new ProcessIO(0,0,0,2000,1024*1024,1024*1024);
         oneKbObject  = new ProcessIO(0,0,0,1000,1024,1024);
         oneGbReadAndHalfGbWriteObject  = new ProcessIO(0,0,0,10000,(1024l*1024l*1024l*10l),(1024l*1024l*1024l*5l));
 
-        processIOUsageCalculator = new BasicProcessIOUsageCalculator();
+        processIOUsage = new BasicProcessIOUsage();
     }
 
     @Test
     public void testOneMbPerSecondIsReturnedByCalculator() {
-        double value = processIOUsageCalculator.getMbPerSecondReadIO(oneMbObject);
+        double value = processIOUsage.getSampleTimeMbPerSecondReadIO(oneMbObject);
         assertEquals(1.0,value,DELTA);
-        value = processIOUsageCalculator.getMbPerSecondWriteIO(oneMbObject);
+        value = processIOUsage.getSampleTimeMbPerSecondWriteIO(oneMbObject);
         assertEquals(1.0,value,DELTA);
     }
 
     @Test
     public void testHalfMbPerSecondIsReturnedByCalculator() {
-        double value = processIOUsageCalculator.getMbPerSecondReadIO(halfMbObject);
+        double value = processIOUsage.getSampleTimeMbPerSecondReadIO(halfMbObject);
         assertEquals(0.5,value,DELTA);
-        value = processIOUsageCalculator.getMbPerSecondWriteIO(halfMbObject);
+        value = processIOUsage.getSampleTimeMbPerSecondWriteIO(halfMbObject);
         assertEquals(0.5,value,DELTA);
     }
 
@@ -68,29 +68,29 @@ public class TestCanObtainReadAndWriteInKbPerSecond {
     @Test
     public void testOneKBPerSecondIsReturnedByCalculator() {
 
-        double value = processIOUsageCalculator.getKbPerSecondReadIO(oneKbObject);
+        double value = processIOUsage.getSampleTimeKbPerSecondReadIO(oneKbObject);
         assertEquals(1.0,value,DELTA);
 
-        value = processIOUsageCalculator.getKbPerSecondWriteIO(oneKbObject);
+        value = processIOUsage.getSampleTimeKbPerSecondWriteIO(oneKbObject);
         assertEquals(1.0,value,DELTA);
     }
 
 
     @Test
     public void testOneKBPerSecondsIsReturnedInMBByCalculator() {
-        double value = processIOUsageCalculator.getMbPerSecondReadIO(oneKbObject);
+        double value = processIOUsage.getSampleTimeMbPerSecondReadIO(oneKbObject);
         assertEquals(0.0009765625,value,DELTA);
 
-        value = processIOUsageCalculator.getMbPerSecondWriteIO(oneKbObject);
+        value = processIOUsage.getSampleTimeMbPerSecondWriteIO(oneKbObject);
         assertEquals(0.0009765625,value,DELTA);
     }
 
     @Test
     public void testOneGBPerSecondsIsReturnedInMBByCalculator() {
-        double value = processIOUsageCalculator.getMbPerSecondReadIO(oneGbReadAndHalfGbWriteObject);
+        double value = processIOUsage.getSampleTimeMbPerSecondReadIO(oneGbReadAndHalfGbWriteObject);
         assertEquals(1024.0,value,DELTA);
 
-        value = processIOUsageCalculator.getKbPerSecondReadIO(oneGbReadAndHalfGbWriteObject);
+        value = processIOUsage.getSampleTimeKbPerSecondReadIO(oneGbReadAndHalfGbWriteObject);
         assertEquals(1048576.0,value,DELTA);
     }
 

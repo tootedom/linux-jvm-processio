@@ -17,13 +17,11 @@ package org.greencheek.processio.domain.jmx;
 
 import org.greencheek.processio.domain.CurrentProcessIO;
 import org.greencheek.processio.domain.ProcessIO;
-import org.greencheek.processio.service.BasicProcessIOUsageCalculator;
+import org.greencheek.processio.service.usage.BasicProcessIOUsage;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.*;
 
 /**
  * User: dominictootell
@@ -34,7 +32,6 @@ public class TestProcessIOUsageHolder {
     private static final double DELTA = 1e-15;
 
     private ProcessIOUsageMXBean usageMXBean;
-    private ProcessIOUsageMXBean usageMXBeanDefaultConstructor;
     private CurrentProcessIO oneMbObject;
     private CurrentProcessIO halfMbObject;
     private CurrentProcessIO oneGbObject;
@@ -43,8 +40,7 @@ public class TestProcessIOUsageHolder {
     @Before
     public void setUp() {
 
-        usageMXBean = new ProcessIOUsageHolder(startMillis,new BasicProcessIOUsageCalculator());
-        usageMXBeanDefaultConstructor = new ProcessIOUsageHolder();
+        usageMXBean = new ProcessIOUsageHolder(startMillis,new BasicProcessIOUsage());
         oneMbObject  = new CurrentProcessIO(1000,1024*1024,1024*1024);
         halfMbObject = new CurrentProcessIO(2000,1024*1024,1024*1024);
         oneGbObject  = new CurrentProcessIO(10000,(1024l*1024l*1024l*10l),(1024l*1024l*1024l*10l));
@@ -73,29 +69,29 @@ public class TestProcessIOUsageHolder {
     public void testProcessIOUsageIsUpdateableAndReturnsCorrectUsage() {
         ((ProcessIOUsageHolder)usageMXBean).setProcessIO(oneMbObject);
 
-        assertEquals(1.0,usageMXBean.getTimeSliceMbPerSecondForReadIO(),DELTA);
-        assertEquals(1.0,usageMXBean.getTimeSliceMbPerSecondForWriteIO(),DELTA);
+        assertEquals(1.0,usageMXBean.getSampleTimeMbPerSecondReadIO(),DELTA);
+        assertEquals(1.0,usageMXBean.getSampleTimeMbPerSecondWriteIO(),DELTA);
 
-        assertEquals(1024.0,usageMXBean.getTimeSliceKbPerSecondForReadIO(),DELTA);
-        assertEquals(1024.0,usageMXBean.getTimeSliceKbPerSecondForWriteIO(),DELTA);
+        assertEquals(1024.0,usageMXBean.getSampleTimeKbPerSecondReadIO(),DELTA);
+        assertEquals(1024.0,usageMXBean.getSampleTimeKbPerSecondWriteIO(),DELTA);
 
         ((ProcessIOUsageHolder)usageMXBean).setProcessIO(new CurrentProcessIO(0,0,0));
         ((ProcessIOUsageHolder)usageMXBean).setProcessIO(oneGbObject);
 
-        assertEquals(1024.0,usageMXBean.getTimeSliceMbPerSecondForReadIO(),DELTA);
-        assertEquals(1024.0,usageMXBean.getTimeSliceMbPerSecondForWriteIO(),DELTA);
+        assertEquals(1024.0,usageMXBean.getSampleTimeMbPerSecondReadIO(),DELTA);
+        assertEquals(1024.0,usageMXBean.getSampleTimeMbPerSecondWriteIO(),DELTA);
 
-        assertEquals(1024.0*1024.0,usageMXBean.getTimeSliceKbPerSecondForReadIO(),DELTA);
-        assertEquals(1024.0*1024.0,usageMXBean.getTimeSliceKbPerSecondForWriteIO(),DELTA);
+        assertEquals(1024.0*1024.0,usageMXBean.getSampleTimeKbPerSecondReadIO(),DELTA);
+        assertEquals(1024.0*1024.0,usageMXBean.getSampleTimeKbPerSecondWriteIO(),DELTA);
 
         ((ProcessIOUsageHolder)usageMXBean).setProcessIO(new CurrentProcessIO(0,0,0));
         ((ProcessIOUsageHolder)usageMXBean).setProcessIO(halfMbObject);
 
-        assertEquals(0.5,usageMXBean.getTimeSliceMbPerSecondForReadIO(),DELTA);
-        assertEquals(0.5,usageMXBean.getTimeSliceMbPerSecondForWriteIO(),DELTA);
+        assertEquals(0.5,usageMXBean.getSampleTimeMbPerSecondReadIO(),DELTA);
+        assertEquals(0.5,usageMXBean.getSampleTimeMbPerSecondWriteIO(),DELTA);
 
-        assertEquals(512.0,usageMXBean.getTimeSliceKbPerSecondForReadIO(),DELTA);
-        assertEquals(512.0,usageMXBean.getTimeSliceKbPerSecondForWriteIO(),DELTA);
+        assertEquals(512.0,usageMXBean.getSampleTimeKbPerSecondReadIO(),DELTA);
+        assertEquals(512.0,usageMXBean.getSampleTimeKbPerSecondWriteIO(),DELTA);
     }
 
     @Test
@@ -104,7 +100,7 @@ public class TestProcessIOUsageHolder {
 
         ((ProcessIOUsageHolder)usageMXBean).setProcessIO(new CurrentProcessIO(startMillis+865919l,0l,5399044096l));
 
-        assertEquals(5.946202459467918,usageMXBean.getRunningTimeMbPerSecondForWriteIO(),DELTA);
+        assertEquals(5.946202459467918,usageMXBean.getAccumulatedMbPerSecondWriteIO(),DELTA);
 
     }
 
@@ -112,8 +108,8 @@ public class TestProcessIOUsageHolder {
     public void testProcessIOUsageIsCalculatedWhenUsingDefaultConstructor() {
         ((ProcessIOUsageHolder)usageMXBean).setProcessIO(oneMbObject);
 
-        assertEquals(1.0,usageMXBean.getTimeSliceMbPerSecondForReadIO(),DELTA);
-        assertEquals(1.0,usageMXBean.getTimeSliceMbPerSecondForWriteIO(),DELTA);
+        assertEquals(1.0,usageMXBean.getSampleTimeMbPerSecondReadIO(),DELTA);
+        assertEquals(1.0,usageMXBean.getSampleTimeMbPerSecondWriteIO(),DELTA);
 
     }
 }

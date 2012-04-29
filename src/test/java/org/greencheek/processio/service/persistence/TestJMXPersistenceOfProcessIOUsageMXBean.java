@@ -18,8 +18,7 @@ package org.greencheek.processio.service.persistence;
 import org.greencheek.processio.domain.CurrentProcessIO;
 import org.greencheek.processio.domain.ProcessIO;
 import org.greencheek.processio.domain.jmx.ProcessIOUsageMXBean;
-import org.greencheek.processio.service.BasicProcessIOUsageCalculator;
-import org.greencheek.processio.service.ProcessIOUsageCalculator;
+import org.greencheek.processio.service.usage.BasicProcessIOUsage;
 import org.greencheek.processio.service.persistence.jmx.ProcessIOUsagePersistenceViaJmx;
 import org.junit.After;
 import org.junit.Before;
@@ -51,7 +50,7 @@ public class TestJMXPersistenceOfProcessIOUsageMXBean {
 
     @Before
     public void setUp() {
-        persistenceService = new ProcessIOUsagePersistenceViaJmx(new BasicProcessIOUsageCalculator(),"org.greencheek","iousage");
+        persistenceService = new ProcessIOUsagePersistenceViaJmx(new BasicProcessIOUsage(),"org.greencheek","iousage");
         persistenceService.init();
 
         halfMbObject = new CurrentProcessIO(2000,1024*1024,1024*1024);
@@ -70,16 +69,15 @@ public class TestJMXPersistenceOfProcessIOUsageMXBean {
 
         ObjectName name = ((ProcessIOUsagePersistenceViaJmx)persistenceService).getBeanObjectName();
         ProcessIOUsageMXBean proxy = JMX.newMXBeanProxy(mbeanServer, name, ProcessIOUsageMXBean.class, false);
-        ProcessIO res = proxy.getProcessIO();
 
-        double val = proxy.getTimeSliceKbPerSecondForReadIO();
+        double val = proxy.getSampleTimeKbPerSecondReadIO();
 
         assertEquals(512.0,val,DELTA);
         persistenceService.persist(new CurrentProcessIO(0,0,0));
 
         persistenceService.persist(oneGbObject);
 
-        val = proxy.getTimeSliceKbPerSecondForReadIO();
+        val = proxy.getSampleTimeKbPerSecondReadIO();
 
         assertEquals(1024.0*1024.0,val,DELTA);
 

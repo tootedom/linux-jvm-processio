@@ -72,7 +72,7 @@ public class ProcessIO {
 
     /**
      * Returns the previous time that the read and write bytes were obtained.
-     * @return
+     * @return  The time in millis that the previous IO usage was read
      */
     public long getPreviousSampleMs() {
         return previousSampleMs;
@@ -80,7 +80,7 @@ public class ProcessIO {
 
     /**
      * Returns the number of bytes that where read previously by the process
-     * @return
+     * @return the number of bytes the process had previously read
      */
     public long getPreviousSampleReadBytes() {
         return previousSampleReadBytes;
@@ -88,7 +88,7 @@ public class ProcessIO {
 
     /**
      * Returns the number of byte the where written previously by the process
-     * @return
+     * @return the number of bytes the process had previously written
      */
     public long getPreviousSampleWriteBytes() {
         return previousSampleWriteBytes;
@@ -96,7 +96,7 @@ public class ProcessIO {
 
     /**
      * Returns the last time, in millis, that the read and write bytes were obtained
-     * @return
+     * @return The latest time in millis that the process IO usage was read
      */
     public long getCurrentSampleMs() {
         return currentSampleMs;
@@ -104,7 +104,7 @@ public class ProcessIO {
 
     /**
      * Returns the number of bytes the process has read, that were last sampled
-     * @return
+     * @return the number of bytes read by the process currently, as determined by the last time the process was sampled
      */
     public long getCurrentSampleReadBytes() {
         return currentSampleReadBytes;
@@ -112,9 +112,25 @@ public class ProcessIO {
 
     /**
      * Returns the number of bytes the process has written, that were last sampled
-     * @return
+     * @return the number of bytes written by the process currently, as determined by the last time the process was sampled
      */
     public long getCurrentSampleWriteBytes() {
         return currentSampleWriteBytes;
+    }
+
+    /**
+     * Returns the difference in write bytes between the previous time stamp and the current time stamp
+     * @return The difference in bytes between the current sampled read bytes and the previous sample
+     */
+    public long getDifferenceInWriteBytes() {
+        return getCurrentSampleWriteBytes() - getPreviousSampleWriteBytes();
+    }
+
+    /**
+     * Returns the difference in read bytes between the previous time stamp and the current time stamp
+     * @return The difference in bytes between the current sampled written bytes and the previous sample
+     */
+    public long getDifferenceInReadBytes() {
+        return getCurrentSampleReadBytes() - getPreviousSampleReadBytes();
     }
 }

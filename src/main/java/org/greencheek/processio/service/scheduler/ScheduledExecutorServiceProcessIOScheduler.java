@@ -69,7 +69,6 @@ public class ScheduledExecutorServiceProcessIOScheduler implements ProcessIOSche
                     CurrentProcessIO io = reader.getCurrentProcessIO();
                     persistence.persist(io);
                 } catch (Exception e) {
-                    e.printStackTrace();
                     log.error("Exception occurred whilst reading current process io",e);
                 }
             }
