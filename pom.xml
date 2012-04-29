@@ -3,7 +3,7 @@
 
     <groupId>org.greencheek</groupId>
     <artifactId>processio</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>processio</name>
@@ -98,9 +98,11 @@
                 <version>2.2.1</version>
                 <configuration>
                     <!-- This is optional.. If I only want to do deploy, not cause a site-deploy
-      to occur too because I don't yet have the site details for the code, Then
-      the below makes sure that just a "deploy" occurs, and no site is generated -->
+                         to occur too because I don't yet have the site details for the code, Then
+                         the below makes sure that just a "deploy" occurs, and no site is generated -->
+                    <!--
                     <goals>deploy</goals>
+                    -->
                 </configuration>
             </plugin>
             <plugin>
