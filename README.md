@@ -67,7 +67,7 @@ For example:
 
 ## Install/Usage
 
-Use of the javaagent is by adding an appropriate *-javaagent* to jvm startup.  I.e. for tomcat, create a bin/setenv.sh like as follows:
+Use of the javaagent is by adding an appropriate **-javaagent** to jvm startup.  I.e. for tomcat, create a bin/setenv.sh like as follows:
 
 ```
     export CATALINA_OPTS="-javaagent:$CATALINA_HOME/lib/processio-0.0.1-SNAPSHOT-relocated-shade.jar"
@@ -75,7 +75,7 @@ Use of the javaagent is by adding an appropriate *-javaagent* to jvm startup.  I
 
 Upon startup the agent will start a background thread that by default reads the /procfs files system every minute (sample time/frequency)
 It will register in the JMX server a bean containing the current process io usage.  The bean will be registered under the domain
-*org.greencheek* with the name *processiousage*.
+**org.greencheek** with the name **processiousage**.
 
 ![Bean Registered in JMX](./linux-jvm-processio/raw/master/processiobean.png)
 
@@ -91,10 +91,14 @@ These can be seen below:
 ![Bean Registered in JMX](./linux-jvm-processio/raw/master/processiobean-counters.png)
 
 
-You can change the refrequency of the sampling time with the option *frequency*; on the *-javaagent* command line.
-You can also change the name of the bean (*jmxbeanname*) and/or the domain (*jmxdomainname*) under which it is registered, for example:
+You can change the refrequency of the sampling time with the option **frequency**; on the **-javaagent** command line.
+You can also change the name of the bean (**jmxbeanname**) and/or the domain (**jmxdomainname**) under which it is registered, for example:
+
+* frequency     : The frequency in millis to read the /proc/PID/io file system
+* jmxbeanname   : Change the name of the been
+* jmxdomainname : Change the domain under which the bean is registered
 
 ```
-   export CATALINA_OPTS="-javaagent:$CATALINA_HOME/lib/processio-0.0.1-SNAPSHOT-relocated-shade.jar=frequency=5000,jmxbeanname=io,jmxdomainname=my.domain
+   export CATALINA_OPTS="-javaagent:$CATALINA_HOME/lib/processio-0.0.1-SNAPSHOT-relocated-shade.jar=frequency=300000,jmxbeanname=io,jmxdomainname=my.domain
 ```
 
