@@ -1,4 +1,4 @@
-Linux JMV IO Usage Agent.
+Linux JVM IO Usage Agent.
 ---------------------------------
 
 A simple javaagent (http://docs.oracle.com/javase/6/docs/api/java/lang/instrument/package-summary.html)
@@ -77,7 +77,7 @@ Upon startup the agent will start a background thread that by default reads the 
 It will register in the JMX server a bean containing the current process io usage.  The bean will be registered under the domain
 *org.greencheek* with the name *processiousage*.
 
-![Bean Registered in JMX](./processiobean.png)
+![Bean Registered in JMX](./linux-jvm-processio/processiobean.png)
 
 The bean provides the following counters:
 
@@ -88,7 +88,7 @@ The bean provides the following counters:
 
 These can be seen below:
 
-![Bean Registered in JMX](./processiobean-counters.png)
+![Bean Registered in JMX](./linux-jvm-processio/processiobean-counters.png)
 
 
 You can change the refrequency of the sampling time with the option *frequency*; on the *-javaagent* command line.
