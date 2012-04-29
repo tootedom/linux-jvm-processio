@@ -42,13 +42,13 @@ public class ProcessIOAgent {
     // order by greatest (top 5), just for example of using /proc/PID/io
     // grep read_bytes /proc/[0-9]*/io | sort -nrk2 | head -5
     //
+    private static final Logger log = LoggerFactory.getLogger(ProcessIOAgent.class);
 
 
     private static final Pattern FREQUENCY_OPTION = Pattern.compile(".*frequency=(\\d+).*");
     private static final Pattern JMX_BEAN_NAME = Pattern.compile(".*jmxbeanname=(\\w+).*");
     private static final Pattern JMX_DOMAIN_NAME = Pattern.compile(".*jmxdomainname=([\\w\\.]+).*");
     private static final long DEFAULT_SCHEDULING_FREQUENCY = ProcessIOScheduler.DEFAULT_FREQUENCY_IN_MILLIS;
-    private static final Logger log = LoggerFactory.getLogger(ProcessIOAgent.class);
     private static final String PROC_IO_LOCATION = "/proc/%d/io";
     private static final JVMProcessIdObtainer pidParser = new JMXJVMProcessIdObtainer();
     private static final ProcessIOReader processIOReader;
@@ -110,7 +110,7 @@ public class ProcessIOAgent {
             scheduler.start(frequencyOfScheduler);
 
 
-
+            log.info("ProcessIOAgent Running, io will be obtain every {}ms",frequencyOfScheduler);
         }
     }
     

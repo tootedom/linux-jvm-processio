@@ -17,6 +17,8 @@ package org.greencheek.processio.service.io;
 
 import org.greencheek.processio.domain.CurrentProcessIO;
 import org.greencheek.processio.service.io.ProcessIOReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -30,6 +32,8 @@ import java.util.regex.Pattern;
  */
 public class FileSystemProcIOProcessIOReader implements ProcessIOReader {
 
+    private static final Logger log = LoggerFactory.getLogger(FileSystemProcIOProcessIOReader.class);
+
     private static final Pattern READ_BYTES_PATTERN = Pattern.compile("^\\s*read_bytes\\s*:\\s*(\\d+)[^\\d]*$");
     private static final Pattern WRITE_BYTES_PATTERN = Pattern.compile("^\\s*write_bytes\\s*:\\s*(\\d+)[^\\d]*$");
 
@@ -42,6 +46,7 @@ public class FileSystemProcIOProcessIOReader implements ProcessIOReader {
     @Override
     public CurrentProcessIO getCurrentProcessIO() {
         if(!procIOLocation.canRead()) {
+            log.warn("Unable to read process io location: {}",procIOLocation.getAbsolutePath());
             return new CurrentProcessIO(System.currentTimeMillis(),Long.MIN_VALUE,Long.MIN_VALUE);
         }
 
@@ -51,6 +56,7 @@ public class FileSystemProcIOProcessIOReader implements ProcessIOReader {
         try {
             fis = new FileInputStream(procIOLocation);
         } catch (FileNotFoundException e) {
+            log.warn("Not found process io location: {}",procIOLocation.getAbsolutePath());
             return new CurrentProcessIO(System.currentTimeMillis(),Long.MIN_VALUE,Long.MIN_VALUE);
         }
 
@@ -83,6 +89,7 @@ public class FileSystemProcIOProcessIOReader implements ProcessIOReader {
                 }
             }
         } catch (IOException e) {
+            log.warn("Unable to read process io location: {}",procIOLocation.getAbsolutePath());
             return new CurrentProcessIO(System.currentTimeMillis(),Long.MIN_VALUE,Long.MIN_VALUE);
         } finally {
             if(br!=null) {
@@ -95,6 +102,8 @@ public class FileSystemProcIOProcessIOReader implements ProcessIOReader {
         }
 
         if(readBytes==null || writeBytes==null) {
+            log.warn("Unable read with the read_bytes or write_bytes from io location: {}",procIOLocation.getAbsolutePath());
+
             return new CurrentProcessIO(System.currentTimeMillis(),Long.MIN_VALUE,Long.MIN_VALUE);
         } else {
             return new CurrentProcessIO(System.currentTimeMillis(),readBytes,writeBytes);

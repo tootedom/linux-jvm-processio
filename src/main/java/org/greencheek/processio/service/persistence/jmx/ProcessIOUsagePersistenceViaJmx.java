@@ -78,21 +78,14 @@ public class ProcessIOUsagePersistenceViaJmx implements ProcessIOUsagePersistenc
             server.registerMBean(ioUsageHolder, jmxObjectName);
             registered = true;
         } catch (NullPointerException e) {
-            if (log.isWarnEnabled()) {
-                log.warn("Unable to register with jmx, invalid bean name:{}", beanObjectName, e);
-            }
+            log.warn("Unable to register with jmx, invalid bean name:{}", beanObjectName, e);
+
         } catch (InstanceAlreadyExistsException e) {
-            if (log.isWarnEnabled()) {
-                log.warn("Unable to register with jmx, bean already exists:{}", beanObjectName, e);
-            }
+            log.warn("Unable to register with jmx, bean already exists:{}", beanObjectName, e);
         } catch (MBeanRegistrationException e) {
-            if (log.isWarnEnabled()) {
-                log.warn("Unable to register with jmx, exception during registration:{}", beanObjectName, e);
-            }
+            log.warn("Unable to register with jmx, exception during registration:{}", beanObjectName, e);
         } catch (NotCompliantMBeanException e) {
-            if (log.isWarnEnabled()) {
-                log.warn("Unable to register with jmx, bean is not compatible:{}", beanObjectName, e);
-            }
+            log.warn("Unable to register with jmx, bean is not compatible:{}", beanObjectName, e);
         } finally {
             registeredInJmx = registered;
             jmxRegisteredObjectName = jmxObjectName;
@@ -115,9 +108,7 @@ public class ProcessIOUsagePersistenceViaJmx implements ProcessIOUsagePersistenc
         try {
             objName = new ObjectName(beanObjectName);
         } catch (MalformedObjectNameException e) {
-            if(log.isWarnEnabled()) {
-                log.warn("Unable to register with jmx, invalid bean name:{}", beanObjectName, e);
-            }
+            log.warn("Unable to register with jmx, invalid bean name:{}", beanObjectName, e);
         }
 
         return objName;
@@ -140,15 +131,9 @@ public class ProcessIOUsagePersistenceViaJmx implements ProcessIOUsagePersistenc
             try {
                 server.unregisterMBean(getBeanObjectName());
             } catch (MBeanRegistrationException e) {
-                // TODO Auto-generated catch block
-                if(log.isWarnEnabled()) {
-                    log.warn("Unable to unregister object with jmx:{}", beanObjectNameStringRepresentation, e);
-                }
+                log.warn("Unable to unregister object with jmx:{}", beanObjectNameStringRepresentation, e);
             } catch (InstanceNotFoundException e) {
-                // TODO Auto-generated catch block
-                if(log.isWarnEnabled()) {
-                    log.warn("Unable to unregister object with jmx, object not registered:{}", beanObjectNameStringRepresentation, e);
-                }
+                log.warn("Unable to unregister object with jmx, object not registered:{}", beanObjectNameStringRepresentation, e);
             }
         }
     }
