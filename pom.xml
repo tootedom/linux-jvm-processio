@@ -177,7 +177,6 @@
                 <version>2.7.1</version>
                 <configuration>
                     <targetJdk>1.5</targetJdk>
-                    <linkXref>true</linkXref>
                     <sourceEncoding>utf-8</sourceEncoding>
                     <minimumTokens>100</minimumTokens>
                 </configuration>

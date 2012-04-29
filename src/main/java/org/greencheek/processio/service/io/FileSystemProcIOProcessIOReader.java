@@ -33,9 +33,11 @@ import java.util.regex.Pattern;
 public class FileSystemProcIOProcessIOReader implements ProcessIOReader {
 
     private static final Logger log = LoggerFactory.getLogger(FileSystemProcIOProcessIOReader.class);
+    private static final String PROC_IO_LOCATION = "/proc/%d/io";
 
     private static final Pattern READ_BYTES_PATTERN = Pattern.compile("^\\s*read_bytes\\s*:\\s*(\\d+)[^\\d]*$");
     private static final Pattern WRITE_BYTES_PATTERN = Pattern.compile("^\\s*write_bytes\\s*:\\s*(\\d+)[^\\d]*$");
+
 
     private final File procIOLocation;
 
@@ -43,11 +45,22 @@ public class FileSystemProcIOProcessIOReader implements ProcessIOReader {
         procIOLocation = new File(location.getAbsolutePath());
     }
 
+    public FileSystemProcIOProcessIOReader(int pid) {
+        this(new File(String.format(PROC_IO_LOCATION,pid)));
+    }
+
+    /**
+     * Reads the read_bytes and write_bytes from the current process io /proc file.
+     * If the /proc/PID/io file is not readable then it returns
+     * {@value org.greencheek.processio.service.io.ProcessIOReader#NON_READABLE_PROCESS_IO}
+     *
+     * @return  The current io of the jvm process
+     */
     @Override
     public CurrentProcessIO getCurrentProcessIO() {
         if(!procIOLocation.canRead()) {
             log.warn("Unable to read process io location: {}",procIOLocation.getAbsolutePath());
-            return new CurrentProcessIO(System.currentTimeMillis(),Long.MIN_VALUE,Long.MIN_VALUE);
+            return NON_READABLE_PROCESS_IO;
         }
 
 
@@ -57,7 +70,7 @@ public class FileSystemProcIOProcessIOReader implements ProcessIOReader {
             fis = new FileInputStream(procIOLocation);
         } catch (FileNotFoundException e) {
             log.warn("Not found process io location: {}",procIOLocation.getAbsolutePath());
-            return new CurrentProcessIO(System.currentTimeMillis(),Long.MIN_VALUE,Long.MIN_VALUE);
+            return NON_READABLE_PROCESS_IO;
         }
 
         InputStreamReader is = null;
@@ -90,7 +103,7 @@ public class FileSystemProcIOProcessIOReader implements ProcessIOReader {
             }
         } catch (IOException e) {
             log.warn("Unable to read process io location: {}",procIOLocation.getAbsolutePath());
-            return new CurrentProcessIO(System.currentTimeMillis(),Long.MIN_VALUE,Long.MIN_VALUE);
+            return NON_READABLE_PROCESS_IO;
         } finally {
             if(br!=null) {
                 try {
@@ -104,7 +117,7 @@ public class FileSystemProcIOProcessIOReader implements ProcessIOReader {
         if(readBytes==null || writeBytes==null) {
             log.warn("Unable read with the read_bytes or write_bytes from io location: {}",procIOLocation.getAbsolutePath());
 
-            return new CurrentProcessIO(System.currentTimeMillis(),Long.MIN_VALUE,Long.MIN_VALUE);
+            return NON_READABLE_PROCESS_IO;
         } else {
             return new CurrentProcessIO(System.currentTimeMillis(),readBytes,writeBytes);
         }

@@ -66,8 +66,10 @@ public class ScheduledExecutorServiceProcessIOScheduler implements ProcessIOSche
             @Override
             public void run() {
                 try {
+                    log.info("Obtaining process io");
                     CurrentProcessIO io = reader.getCurrentProcessIO();
-                    persistence.persist(io);
+                    if(io != ProcessIOReader.NON_READABLE_PROCESS_IO) persistence.persist(io);
+                    else log.warn("Unable to read process io");
                 } catch (Exception e) {
                     log.error("Exception occurred whilst reading current process io",e);
                 }

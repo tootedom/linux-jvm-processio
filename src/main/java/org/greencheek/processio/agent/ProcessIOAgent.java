@@ -49,7 +49,6 @@ public class ProcessIOAgent {
     private static final Pattern JMX_BEAN_NAME = Pattern.compile(".*jmxbeanname=(\\w+).*");
     private static final Pattern JMX_DOMAIN_NAME = Pattern.compile(".*jmxdomainname=([\\w\\.]+).*");
     private static final long DEFAULT_SCHEDULING_FREQUENCY = ProcessIOScheduler.DEFAULT_FREQUENCY_IN_MILLIS;
-    private static final String PROC_IO_LOCATION = "/proc/%d/io";
     private static final JVMProcessIdObtainer pidParser = new JMXJVMProcessIdObtainer();
     private static final ProcessIOReader processIOReader;
     private static volatile ProcessIOScheduler scheduler;
@@ -63,7 +62,7 @@ public class ProcessIOAgent {
         foundPID = (CURRENT_JVM_PID!=JVMProcessIdObtainer.PID_NOT_FOUND);
         ProcessIOReader ioReader = null;
         if(foundPID) {
-            ioReader = new FileSystemProcIOProcessIOReader(new File(String.format(PROC_IO_LOCATION,CURRENT_JVM_PID)));
+            ioReader = new FileSystemProcIOProcessIOReader(CURRENT_JVM_PID);
         }
         processIOReader = ioReader;
 
