@@ -23,6 +23,19 @@ import org.greencheek.processio.service.usage.ProcessIOUsage;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
+ * <p>
+ * MXBean object that holds the amount of io that the process has done;
+ * for easy registration in jmx.
+ * </p>
+ * <p>
+ * This MX object holds the time that the first IO process information was read,
+ * and ProcessIO object that stores the current and previously recorded IO Usage
+ * </p>
+ * <p>
+ * A ProcessIOUsage object is used to provide
+ * </p>
+ *
+ *
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 15:54

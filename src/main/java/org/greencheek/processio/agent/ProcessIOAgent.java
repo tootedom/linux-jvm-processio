@@ -37,6 +37,28 @@ import java.util.regex.Pattern;
 import javax.management.MBeanServer;
 
 
+/**
+ * <p>
+ * Agent that is responsible for setting up a scheduler that periodically reads
+ * the amount of read and write io that the current jvm process has performed.
+ * The java is enabled via the -javaagent flag on the jvm.  For example on a tomcat it can be
+ * controlled via the following (example for enabling in tomcat):
+ * <pre>
+ *        export CATALINA_OPTS="-javaagent:$CATALINA_HOME/lib/processio-0.0.1-SNAPSHOT-relocated-shade.jar=frequency=300000,jmxbeanname=io,jmxdomainname=my.domain"
+ * </pre>
+ * </p>
+ * <p>
+ * The following arguments are available:
+ * <ul>
+ *     <li>frequency : The frequency of the io collection in millis</li>
+ *     <li>jmxbeanname : The name of the bean to register in jmx</li>
+ *     <li>jmxdomainname : Then name of the domain under which to register the bean in jmx</li>
+ * </ul>
+ * </p>
+ * <p>
+ * The agent registers the io that is available in the jvm's MBeanServer
+ * </p>
+ */
 public class ProcessIOAgent {
     //
     // order by greatest (top 5), just for example of using /proc/PID/io

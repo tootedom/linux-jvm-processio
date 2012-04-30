@@ -1,6 +1,10 @@
 Linux JVM IO Usage Agent.
 ---------------------------------
 
+```
+   Not Yet Available in Maven Repo
+```
+
 A simple javaagent (http://docs.oracle.com/javase/6/docs/api/java/lang/instrument/package-summary.html)
 that allows you to recording jmx the current io that a JVM process is performing.
 
@@ -39,7 +43,7 @@ the shade packages 1.6.4 of slf4j relocated under the org.greencheek package.
 		<dependency>
 			<groupId>org.greencheek</groupId>
   			<artifactId>processio</artifactId>
-  			<version>0.0.1</version>
+  			<version>1.0.0</version>
   			<classifier>relocated-shade</classifier>
 		</dependency>
 ```
@@ -50,7 +54,7 @@ You can get the normal jar if you do not need this relocated package at:
 		<dependency>
 			<groupId>org.greencheek</groupId>
   			<artifactId>processio</artifactId>
-  			<version>0.0.1</version>
+  			<version>1.0.0</version>
   			<classifier>relocated-shade</classifier>
 		</dependency>
 ```
