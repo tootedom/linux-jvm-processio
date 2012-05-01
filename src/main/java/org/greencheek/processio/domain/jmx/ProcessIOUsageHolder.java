@@ -29,10 +29,17 @@ import java.util.concurrent.atomic.AtomicReference;
  * </p>
  * <p>
  * This MX object holds the time that the first IO process information was read,
- * and ProcessIO object that stores the current and previously recorded IO Usage
+ * and a ProcessIO object that stores the current and previously recorded IO Usage
  * </p>
  * <p>
- * A ProcessIOUsage object is used to provide
+ * A ProcessIOUsage object is used to provide perform calculations on the ProcessIO object
+ * in order to produce information such as the amount of IO done between two sample periods
+ * or since the created on this holder object.
+ * </p>
+ * <p>
+ * This implementation is used as a mechanism to obtain the ProcessIO object from the MBeanServer
+ * in an atomic unit, so that obtaining the amount of read io performed by the jvm can be obtain from
+ * the MBeanServer in the same atomic unit as when the amount of write i/o is read.
  * </p>
  *
  *
@@ -42,8 +49,15 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class ProcessIOUsageHolder implements ProcessIOUsageMXBean {
 
+    // Used to indicate the start of the jvm
     private final long startMillis;
+
+    // Stores a reference to the service object that is used to perform
+    // calculations based on the values stored in the ProcessIO object.
     private final ProcessIOUsage usage;
+
+    // The reference to the ProcessIO object, that is updated periodically with new
+    // values from the currently read/sampled read/write io for the process.
     private final AtomicReference<ProcessIO> processIORef = new AtomicReference<ProcessIO>();
 
     public ProcessIOUsageHolder() {
@@ -105,6 +119,12 @@ public class ProcessIOUsageHolder implements ProcessIOUsageMXBean {
         return usage.getAccumulatedMbPerSecondWriteIO(startMillis, getProcessIO());
     }
 
+    /**
+     * Updates the ProcessIO object reference to contain a new reference to a ProcessIO object
+     * that has been populated with new read and write io information from the given CurrentProcessIO object.
+     *
+     * @param io The current amount of io that has been obtained for the process.
+     */
     public void setProcessIO(CurrentProcessIO io) {
         ProcessIO previousIO = getProcessIO();
         ProcessIO updatedIO = previousIO.updateCurrentValues(io);

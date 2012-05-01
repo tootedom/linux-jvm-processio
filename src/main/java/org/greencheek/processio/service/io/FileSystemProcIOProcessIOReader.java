@@ -26,6 +26,23 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * Reads the  /proc/PID/io file system for the given pid.  It reads the values for the read_bytes and write_bytes
+ * from the file.  On a redhat system the contents of the /proc/PID/io look like the following:
+ * <pre>
+ rchar: 49820184
+ wchar: 79916
+ syscr: 142929
+ syscw: 265
+ read_bytes: 18790563840
+ write_bytes: 2250752000
+ cancelled_write_bytes: 16384
+ * </pre>
+ * This class would return from {@link #getCurrentProcessIO()} a {@link CurrentProcessIO} object that holds the values
+ * 18790563840 for {@link org.greencheek.processio.domain.CurrentProcessIO#getCurrentReadBytes()}, and
+ * 2250752000 for {@link org.greencheek.processio.domain.CurrentProcessIO#getCurrentWriteBytes()}.  The
+ * {@link org.greencheek.processio.domain.CurrentProcessIO#getCurrentSampleTimeInMillis()} is the time after which those
+ * tow values are read, the CurrentProcessIO object created
+ *
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 17:46

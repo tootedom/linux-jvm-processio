@@ -1,0 +1,15 @@
+<html>
+<head>
+</head>
+<body>
+<p>
+    Contains the MXBean that is stored in the JMX Server, to obtain the ProcessIO obtain from the JMX Service
+    as an atomic unit.  The MXBean makes it easy to obtain the bean via a proxy, and query for it's values:
+    <pre>
+    ObjectName name = new ObjectName("org.greencheek:type=processiousage");
+    ProcessIOUsageMXBean proxy = JMX.newMXBeanProxy(mbeanServer, name, ProcessIOUsageMXBean.class, false);
+    double val = proxy.getSampleTimeKbPerSecondReadIO();
+    </pre>
+</p>
+</body>
+</html>

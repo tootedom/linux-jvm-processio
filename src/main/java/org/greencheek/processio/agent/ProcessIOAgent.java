@@ -56,7 +56,7 @@ import javax.management.MBeanServer;
  * </ul>
  * </p>
  * <p>
- * The agent registers the io that is available in the jvm's MBeanServer
+ * The agent registers the io that is being used by the jvm within the jvm's MBeanServer
  * </p>
  */
 public class ProcessIOAgent {

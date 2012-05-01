@@ -20,8 +20,9 @@ import java.beans.ConstructorProperties;
 /**
  * Represents the amount of IO that a process has performed.
  * The object stores two values.  The previous state and the current state.
- * Two values are stored that any processor can make calculations based on the values, for example
- * the amount of IO processed in X seconds for instance.
+ * Two values are stored so that any {@link org.greencheek.processio.service.usage.ProcessIOUsage}
+ * object can make calculations based on the two values, for example
+ * the amount of IO processed in X seconds.
  *
  * User: dominictootell
  * Date: 22/04/2012
@@ -40,6 +41,18 @@ public class ProcessIO {
         this(0,0,0,0,0,0);
     }
 
+    /**
+     * If the ProcessIO object is stored in a Jmx MBean Server, the @ConstructorProperties
+     * are used in order to allow a JMX MXBean object to reconstruct the ProcessIO object to map the
+     * constructor arguments to match the jmx properties (accessor method) of the object.
+     *
+     * @param previousSampleMills The previous time in millis the IO values for the process were read
+     * @param previousSampleReadBytes The amount of IO the process had performed previously, at the previous time stamp
+     * @param previousSampleWriteBytes The amount of IO the process had performed previously, at the previous time stamp
+     * @param currentSampleMillis  The most recent time in millis the IO values for the process were read
+     * @param currentSampleReadBytes The amount of read IO the process has performed from the most recent sample of it's io usage
+     * @param currentSampleWriteBytes The amount of write IO the process had performed from the most recent sample of it's io usage
+     */
     @ConstructorProperties({"previousSampleMs","previousSampleReadBytes","previousSampleWriteBytes",
                             "currentSampleMs","currentSampleReadBytes","currentSampleWriteBytes"})
     public ProcessIO(long previousSampleMills,
@@ -57,11 +70,33 @@ public class ProcessIO {
 
     }
 
+    /**
+     * Given the current amount of IO that the process has been recorded as caused, This will return a new ProcessIO
+     * object with the previous (this object's) current io values , as the previous values, and the
+     * values in the given {@link CurrentProcessIO} object as the most recent, current, values.
+     *
+     * @param currentIO The current io that has been recorded for the object
+     * @return
+     */
     public ProcessIO updateCurrentValues(CurrentProcessIO currentIO) {
         return updateCurrentValues(currentIO.getCurrentSampleTimeInMillis(),currentIO.getCurrentReadBytes(),
                                    currentIO.getCurrentWriteBytes());
     }
 
+    /**
+     *
+     * Given the current amount of IO that the process has been recorded as caused, This will return a new ProcessIO
+     * object with the previous (this object's) current io values , as the previous values, and the
+     * values in the given as the most recent, current, values.
+     *
+     *
+     * @param currentSampleMillis  The time the latest (current) io value were read.
+     * @param currentSampleReadBytes The current amount of read io the process has performed since it started
+     * @param currentSampleWriteBytes The current amount of write io the process has performed since it started.  The
+     *                                io value was retrieve at the given millis
+     * @return A new ProcessIO object that is build from the current objects current io values, which will be set as the
+     *         previous io, and it's current values taken from the given parameters
+     */
     public ProcessIO updateCurrentValues(long currentSampleMillis,
                                          long currentSampleReadBytes,
                                          long currentSampleWriteBytes) {

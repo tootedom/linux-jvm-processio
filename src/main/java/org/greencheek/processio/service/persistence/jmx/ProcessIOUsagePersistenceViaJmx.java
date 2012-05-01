@@ -26,6 +26,10 @@ import javax.management.*;
 import java.lang.management.ManagementFactory;
 
 /**
+ * Persists a {@link ProcessIOUsageHolder} object in the JMXServer.  This holder object holds onto a {@link org.greencheek.processio.domain.ProcessIO}
+ * object that stores the current and previous io read and written by the process.  The  {@link ProcessIOUsageHolder} object
+ * is a JMX MXBean
+ *
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 16:38
@@ -55,11 +59,22 @@ public class ProcessIOUsagePersistenceViaJmx implements ProcessIOUsagePersistenc
     private final boolean registeredInJmx;
     private final ObjectName jmxRegisteredObjectName;
 
-
+    /**
+     * Persist/Register the given ProcessIOUsage object with the jvm's MBeanServer
+     *
+     * @param ioUsage The {@link ProcessIOUsageHolder} object to persist in the Jvm MBean Server
+     */
     public ProcessIOUsagePersistenceViaJmx(ProcessIOUsage ioUsage) {
         this(ioUsage,DEFAULT_JMX_OBJECT_NAME,DEFAULT_COMPOSED_JMX_BEAN_NAME);
     }
 
+    /**
+     * Persist/Register the given ProcessIOUsage object with the jvm's MBeanServer
+     *
+     * @param ioUsage  The io object to persist
+     * @param jmxObjectName the jmx name to persist the ProcessIOUsage object under
+     * @param beanObjectName the jmx domain under which to register the  {@link ProcessIOUsageHolder} object
+     */
     public ProcessIOUsagePersistenceViaJmx(ProcessIOUsage ioUsage, ObjectName jmxObjectName,
                                            String beanObjectName) {
 

@@ -16,6 +16,10 @@
 package org.greencheek.processio.domain;
 
 /**
+ * Stores the current io that has been recorded for the given process.
+ * Stores the time the io numbers were obtained, the amount of read io the process has done,
+ * and the amount of write io.
+ *
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 17:42
@@ -32,15 +36,26 @@ public class CurrentProcessIO {
        currentWriteBytes = writeBytes;
     }
 
-
+    /**
+     * Returns the time in millis the io information was obtained.
+     * @return
+     */
     public long getCurrentSampleTimeInMillis() {
         return currentSampleTimeInMillis;
     }
 
+    /**
+     * Returns the amount of read io that the process has done, as captured at {@link #getCurrentSampleTimeInMillis()}
+     * @return
+     */
     public long getCurrentReadBytes() {
         return currentReadBytes;
     }
 
+    /**
+     * Returns the amount write io that the process has done, as captured at {@link #getCurrentSampleTimeInMillis()}
+     * @return
+     */
     public long getCurrentWriteBytes() {
         return currentWriteBytes;
     }

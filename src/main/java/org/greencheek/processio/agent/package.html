@@ -1,0 +1,32 @@
+<html>
+<head>
+</head>
+<body>
+<p>
+    This package contains the JavaAgent that kicks of the process of monitoring /proc/PID/io<br/>
+    for the amount of IO that is being performed by the current JVM process.  The PID is<br/>
+    obtain from the name of the RuntimeMXBean that is part of the MBeanServer.
+</p>
+<p>
+    By default the agent will periodically read the /proc/PID/io file for the current process.  The<br/>
+    frequency at which it does this is {@value org.greencheek.processio.service.scheduler.ProcessIOScheduler#DEFAULT_FREQUENCY_IN_MILLIS}
+</p>
+<p>
+    The amount of io the process has done is then by default is stored as a MXBean within the local jvm's MBeanServer<br/>
+    The mbean is registered under the name {@value org.greencheek.processio.service.persistence.jmx.ProcessIOUsagePersistenceViaJmx#DEFAULT_COMPOSED_JMX_BEAN_NAME}
+</p>
+<p>
+    The defaults can be changed via options set on the -javaagent command, for example:
+    <pre>
+       -javaagent:$CATALINA_HOME/lib/processio-0.0.1-SNAPSHOT-relocated-shade.jar=frequency=300000,jmxbeanname=io,jmxdomainname=my.domain
+    </pre>
+</p>
+<p>
+    <ul>
+        <li>frequency : the time in millis that the process periodically records the io consumed by the application</li>
+        <li>jmxdomainname : the domain under which to register the bean</li>
+        <li>jmxbeanname : the name under which to register the bean</li>
+    </ul>
+</p>
+</body>
+</html>
