@@ -2,7 +2,7 @@ Linux JVM IO Usage Agent.
 ---------------------------------
 
 ```
-   Not Yet Available in Maven Repo
+   1.0.0 Available in Maven Repo
 ```
 
 A simple javaagent (http://docs.oracle.com/javase/6/docs/api/java/lang/instrument/package-summary.html)
