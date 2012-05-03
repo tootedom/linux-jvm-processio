@@ -15,6 +15,8 @@
  */
 package org.greencheek.processio.service;
 
+import org.greencheek.processio.service.pid.JMXJVMProcessIdObtainer;
+import org.greencheek.processio.service.pid.JVMProcessIdObtainer;
 import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.*;

@@ -18,6 +18,11 @@ package org.greencheek.processio.service.usage;
 import org.greencheek.processio.domain.ProcessIO;
 
 /**
+ * This implementation uses both {@link DifferenceInKBPerSecondCalculator} and {@link AccumulatedAverageKbPerSecondCalculator}
+ * to return to the caller the amount of io that has been processed between two sample dates, and also since a certain
+ * given time (usually the start of the process)
+ *
+ *
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 13:46

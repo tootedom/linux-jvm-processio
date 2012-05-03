@@ -23,6 +23,18 @@ package org.greencheek.processio.service.usage;
  * Time: 09:34
  */
 public interface DifferenceInKBPerSecondCalculator {
+
+    /**
+     * Returns the amount of io, in kb per second, that has occurred between the two given timestamps.
+     * The amount of io recorded at those two times is passed to the method, and the difference between them
+     * in kb per second is returned.
+     *
+     * @param previousTimeStamp The previous timestamp in millis
+     * @param previousBytesUsed The amount of io used by the process at that given time
+     * @param currentTimeStamp The current timestamp in millis
+     * @param currentBytesUsed The amount of io used by the process at the given recent (current) time
+     * @return The difference in kb per second
+     */
     double getDifferenceInKbPerSecond(long previousTimeStamp,
                                       long previousBytesUsed,
                                       long currentTimeStamp,

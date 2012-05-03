@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.greencheek.processio.service;
+package org.greencheek.processio.service.pid;
 
 /**
+ * Implementations can use what ever means to obtain the PID of the currently operating JVM process
+ *
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 12:12

@@ -140,6 +140,10 @@ public class ProcessIOUsagePersistenceViaJmx implements ProcessIOUsagePersistenc
 
     }
 
+    /**
+     * If the bean was registered in the constructor, then an attempt will be made to remove the bean from
+     * the jmx server on shutdown
+     */
     @Override
     public void destroy() {
         if(isRegisteredInJmx()) {

@@ -3,16 +3,60 @@ package org.greencheek.processio.service.usage;
 import org.greencheek.processio.domain.ProcessIO;
 
 /**
+ * Returns the usage information for the given {@link ProcessIO} object, returning the amoutn of kb or mb that
+ * has been generated.  This usage is either:
+ * <ul>
+ *     <li>The average usage in kb or mb that has occurred between the sampling times (the time the previous and current io info was obtained)</li>
+ *     <li>The average usage in kb or mb that has occurred Since the start of a given time in millis (i.e. the jvm startup)</li>
+ * </ul>
  *
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 13:45
  */
 public interface ProcessIOUsage {
+    /**
+     * Returns the average amount of io that has been processed since the two time periods
+     * recorded in the {@link ProcessIO} object, for the given read io data for the two periods
+     * {@link org.greencheek.processio.domain.ProcessIO#getPreviousSampleReadBytes()}  and
+     * {@link org.greencheek.processio.domain.ProcessIO#getCurrentSampleReadBytes()}
+     *
+     * @param io The io that has been recorded.
+     * @return The mb (megabytes) per second that has occurred between the two periods
+     */
     double getSampleTimeMbPerSecondReadIO(ProcessIO ioUsage);
+
+    /**
+     * Returns the average amount of io that has been processed since the two time periods
+     * recorded in the {@link ProcessIO} object, for the given read io data for the two periods
+     * {@link org.greencheek.processio.domain.ProcessIO#getPreviousSampleReadBytes()}  and
+     * {@link org.greencheek.processio.domain.ProcessIO#getCurrentSampleReadBytes()}
+     *
+     * @param io The io that has been recorded.
+     * @return The kb (kilobytes) per second that has occurred between the two periods
+     */
     double getSampleTimeKbPerSecondReadIO(ProcessIO ioUsage);
 
+    /**
+     * Returns the average amount of io that has been processed since the two time periods
+     * recorded in the {@link ProcessIO} object, for the given read io data for the two periods
+     * {@link org.greencheek.processio.domain.ProcessIO#getPreviousSampleWriteBytes()}  and
+     * {@link org.greencheek.processio.domain.ProcessIO#getCurrentSampleWriteBytes()}
+     *
+     * @param io The io that has been recorded.
+     * @return The mb (megabytes) per second that has occurred between the two periods
+     */
     double getSampleTimeMbPerSecondWriteIO(ProcessIO ioUsage);
+
+    /**
+     * Returns the average amount of io that has been processed since the two time periods
+     * recorded in the {@link ProcessIO} object, for the given read io data for the two periods
+     * {@link org.greencheek.processio.domain.ProcessIO#getPreviousSampleWriteBytes()}  and
+     * {@link org.greencheek.processio.domain.ProcessIO#getCurrentSampleWriteBytes()}
+     *
+     * @param io The io that has been recorded.
+     * @return The kb (kilobytes) per second that has occurred between the two periods
+     */
     double getSampleTimeKbPerSecondWriteIO(ProcessIO ioUsage);
 
     /**

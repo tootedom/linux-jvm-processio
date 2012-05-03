@@ -26,5 +26,12 @@ package org.greencheek.processio.service.usage;
  * Time: 09:38
  */
 public interface AccumulatedAverageKbPerSecondCalculator {
+    /**
+     * Returns the amount of kb per second has been processed/performed between the two time stamps
+     * @param sinceTimeStamp  The first time stamp (usually the time the jvm started)
+     * @param currentTimeStamp A recent time stamp (greater than the sinceTimeStamp)
+     * @param currentBytes The amount of io that the process has consumed in total since the start of it
+     * @return  The amount of IO that has occurred in kb per second between the two times.
+     */
     double getKbPerSecond(long sinceTimeStamp, long currentTimeStamp,long currentBytes);
 }

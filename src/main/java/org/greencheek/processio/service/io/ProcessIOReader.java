@@ -35,7 +35,7 @@ public interface ProcessIOReader {
      * Read the current io (read_bytes and write_bytes) that a process has perform (accumulative), since it started.
      *
      * @return A CurrentProcessIO object that represents the io for the process, or if unable to read the io for the process
-     * will return {@value #NON_READABLE_PROCESS_IO}
+     * will return {@link ProcessIOReader#NON_READABLE_PROCESS_IO}
      */
     CurrentProcessIO getCurrentProcessIO();
 }

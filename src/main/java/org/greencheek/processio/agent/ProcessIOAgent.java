@@ -16,8 +16,8 @@
 package org.greencheek.processio.agent;
 
 import org.greencheek.processio.service.usage.BasicProcessIOUsage;
-import org.greencheek.processio.service.JMXJVMProcessIdObtainer;
-import org.greencheek.processio.service.JVMProcessIdObtainer;
+import org.greencheek.processio.service.pid.JMXJVMProcessIdObtainer;
+import org.greencheek.processio.service.pid.JVMProcessIdObtainer;
 import org.greencheek.processio.service.usage.ProcessIOUsage;
 import org.greencheek.processio.service.io.FileSystemProcIOProcessIOReader;
 import org.greencheek.processio.service.io.ProcessIOReader;
@@ -28,13 +28,9 @@ import org.greencheek.processio.service.scheduler.ScheduledExecutorServiceProces
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.lang.instrument.Instrumentation;
-import java.lang.management.ManagementFactory;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.management.MBeanServer;
 
 
 /**
