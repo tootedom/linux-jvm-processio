@@ -16,13 +16,16 @@
 package org.greencheek.processio.service.usage;
 
 /**
+ * <p>
  * Calculates the amount of io that has occurred between the two given dates.  Given that the amount of io is
  * the amount of io that has been accumulated as the current time stamp, from which the counter start at the
  * since, or previous time stamp
- *
+ * </p>
+ * <p>
  * User: dominictootell
- * Date: 29/04/2012
+ * Date: 22/04/2012
  * Time: 14:32
+ * </p>
  */
 public class PrimitiveBasedAccumulatedAverageKBPerSecondCalculator implements AccumulatedAverageKbPerSecondCalculator {
 

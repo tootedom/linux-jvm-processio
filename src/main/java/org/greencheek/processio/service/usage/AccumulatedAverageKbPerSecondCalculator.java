@@ -16,14 +16,17 @@
 package org.greencheek.processio.service.usage;
 
 /**
+ * <p>
  * Given a starting time in the past and a current timestamp, and
  * given the number representing the amount of bytes used by the process
  * between those two times; the implementing class will work out the amount of
  * Kb (Kilobytes) per second that equates to.
- *
+ * </p>
+ * <p>
  * User: dominictootell
- * Date: 24/04/2012
+ * Date: 22/04/2012
  * Time: 09:38
+ * </p>
  */
 public interface AccumulatedAverageKbPerSecondCalculator {
     /**

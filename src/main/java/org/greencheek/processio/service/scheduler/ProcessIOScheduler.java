@@ -1,11 +1,15 @@
 package org.greencheek.processio.service.scheduler;
 
 /**
+ * <p>
  * Interface that abstracts the way by which the scheduling of the
  * continuous acquistion of process io information is obtained.
+ * </p>
+ * <p>
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 18:38
+ * </p>
  */
 public interface ProcessIOScheduler {
 

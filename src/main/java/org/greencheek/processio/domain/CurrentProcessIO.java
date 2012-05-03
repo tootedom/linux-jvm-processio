@@ -19,10 +19,11 @@ package org.greencheek.processio.domain;
  * Stores the current io that has been recorded for the given process.
  * Stores the time the io numbers were obtained, the amount of read io the process has done,
  * and the amount of write io.
- *
+ * <p>
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 17:42
+ * </p>
  */
 public class CurrentProcessIO {
 

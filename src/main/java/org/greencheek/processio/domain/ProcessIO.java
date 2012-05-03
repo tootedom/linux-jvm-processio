@@ -23,10 +23,11 @@ import java.beans.ConstructorProperties;
  * Two values are stored so that any {@link org.greencheek.processio.service.usage.ProcessIOUsage}
  * object can make calculations based on the two values, for example
  * the amount of IO processed in X seconds.
- *
+ * <p>
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 13:29
+ * </p>
  */
 public class ProcessIO {
     private final long previousSampleMs;

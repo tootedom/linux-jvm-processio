@@ -35,10 +35,11 @@ import org.greencheek.processio.domain.ProcessIO;
  * </ul>
  *
  * </p>
- *
+ * <p>
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 15:53
+ * </p>
  */
 public interface ProcessIOUsageMXBean {
     ProcessIO getProcessIO();

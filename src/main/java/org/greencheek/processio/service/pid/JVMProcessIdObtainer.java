@@ -16,11 +16,14 @@
 package org.greencheek.processio.service.pid;
 
 /**
+ * <p>
  * Implementations can use what ever means to obtain the PID of the currently operating JVM process
- *
+ * </p>
+ * <p>
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 12:12
+ * </p>
  */
 public interface JVMProcessIdObtainer {
     public static final int PID_NOT_FOUND = -1;

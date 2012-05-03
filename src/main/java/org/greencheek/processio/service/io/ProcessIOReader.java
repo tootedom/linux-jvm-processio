@@ -20,9 +20,11 @@ import org.greencheek.processio.domain.CurrentProcessIO;
 /**
  * Interface for reading the read and write io for the process
  *
+ * <p>
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 17:41
+ * </p>
  */
 public interface ProcessIOReader {
 

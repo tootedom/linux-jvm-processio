@@ -41,11 +41,11 @@ import java.util.concurrent.atomic.AtomicReference;
  * in an atomic unit, so that obtaining the amount of read io performed by the jvm can be obtain from
  * the MBeanServer in the same atomic unit as when the amount of write i/o is read.
  * </p>
- *
- *
+ * <p>
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 15:54
+ * </p>
  */
 public class ProcessIOUsageHolder implements ProcessIOUsageMXBean {
 

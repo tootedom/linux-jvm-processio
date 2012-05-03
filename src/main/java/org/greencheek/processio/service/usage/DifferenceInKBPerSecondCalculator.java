@@ -17,10 +17,11 @@ package org.greencheek.processio.service.usage;
  * Given the sets of data the implementing class will return in kb (kilobytes), per second,
  * the amount of io that has occurred between the two time periods
  * </p>
- *
+ * <p>
  * User: dominictootell
- * Date: 24/04/2012
+ * Date: 22/04/2012
  * Time: 09:34
+ * </p>
  */
 public interface DifferenceInKBPerSecondCalculator {
 

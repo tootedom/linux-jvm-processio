@@ -24,16 +24,19 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.*;
 
 /**
+ * <p>
  * Uses a single threaded executor service the contains a runnable task that simply:
  * <ul>
  *     <li>calls {@link org.greencheek.processio.service.io.ProcessIOReader#getCurrentProcessIO()}</li>
  *     <li>asks for the resulting {@link CurrentProcessIO} to be persisted by the implementation of {@link ProcessIOUsagePersistence}</li>
  *     <li>The {@link CurrentProcessIO} is only requested to be persisted if is not the {@link ProcessIOReader#NON_READABLE_PROCESS_IO} instance</li>
  * </ul>
- *
+ * </p>
+ * <p>
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 18:38
+ * </p>
  */
 public class ScheduledExecutorServiceProcessIOScheduler implements ProcessIOScheduler {
 

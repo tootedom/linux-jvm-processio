@@ -3,12 +3,15 @@ package org.greencheek.processio.service.persistence;
 import org.greencheek.processio.domain.CurrentProcessIO;
 
 /**
+ * <p>
  * Saves to somewhere, currently the default implementation is JMX, the CurrentProcessIO that
  * the process has performed (accumulated value) since the process started.
- *
+ * </p>
+ * <p>
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 16:32
+ * </p>
  */
 public interface ProcessIOUsagePersistence {
 

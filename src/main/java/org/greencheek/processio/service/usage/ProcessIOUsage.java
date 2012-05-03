@@ -3,16 +3,19 @@ package org.greencheek.processio.service.usage;
 import org.greencheek.processio.domain.ProcessIO;
 
 /**
+ * <p>
  * Returns the usage information for the given {@link ProcessIO} object, returning the amoutn of kb or mb that
  * has been generated.  This usage is either:
  * <ul>
  *     <li>The average usage in kb or mb that has occurred between the sampling times (the time the previous and current io info was obtained)</li>
  *     <li>The average usage in kb or mb that has occurred Since the start of a given time in millis (i.e. the jvm startup)</li>
  * </ul>
- *
+ * </p>
+ * <p>
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 13:45
+ * </p>
  */
 public interface ProcessIOUsage {
     /**

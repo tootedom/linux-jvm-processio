@@ -43,9 +43,11 @@ import java.util.regex.Pattern;
  * {@link org.greencheek.processio.domain.CurrentProcessIO#getCurrentSampleTimeInMillis()} is the time after which those
  * tow values are read, the CurrentProcessIO object created
  *
+ * <p>
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 17:46
+ * </p>
  */
 public class FileSystemProcIOProcessIOReader implements ProcessIOReader {
 

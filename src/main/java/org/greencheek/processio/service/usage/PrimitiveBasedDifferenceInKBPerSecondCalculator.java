@@ -16,12 +16,15 @@
 package org.greencheek.processio.service.usage;
 
 /**
+ * <p>
  * Given the amount of io that has been processed on a previous date, this class calculates the amount of io that has
  * occurred since that date, and the given date; for which X amount of accumulated io has been recorded
- *
+ * </p>
+ * <p>
  * User: dominictootell
- * Date: 25/04/2012
+ * Date: 22/04/2012
  * Time: 09:31
+ * </p>
  */
 public class PrimitiveBasedDifferenceInKBPerSecondCalculator implements DifferenceInKBPerSecondCalculator {
 

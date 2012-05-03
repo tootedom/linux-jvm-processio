@@ -29,10 +29,11 @@ import java.lang.management.ManagementFactory;
  * Persists a {@link ProcessIOUsageHolder} object in the JMXServer.  This holder object holds onto a {@link org.greencheek.processio.domain.ProcessIO}
  * object that stores the current and previous io read and written by the process.  The  {@link ProcessIOUsageHolder} object
  * is a JMX MXBean
- *
+ * <p>
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 16:38
+ * </p>
  */
 public class ProcessIOUsagePersistenceViaJmx implements ProcessIOUsagePersistence {
 

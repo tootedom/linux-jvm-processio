@@ -19,12 +19,15 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 
 /**
+ * <p>
  * Used JMX to obtain the PID of the JVM process.
  * Parsing the Name attribute of the java.lang:type=Runtime JMX Mbean.
- *
+ * </p>
+ * <p>
  * User: dominictootell
  * Date: 22/04/2012
  * Time: 12:59
+ * </p>
  */
 public class JMXJVMProcessIdObtainer implements JVMProcessIdObtainer {
 
