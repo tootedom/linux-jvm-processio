@@ -55,7 +55,6 @@ You can get the normal jar if you do not need this relocated package at:
 			<groupId>org.greencheek</groupId>
   			<artifactId>processio</artifactId>
   			<version>1.0.0</version>
-  			<classifier>relocated-shade</classifier>
 		</dependency>
 ```
 
@@ -67,14 +66,15 @@ The libraries are available in the mvn repo at:
 
 For example:
 
-	https://raw.github.com/tootedom/tootedom-mvn-repo/master/releases/org/greencheek/processio/0.0.1/processio-0.0.1-relocated-shade.jar
+	https://raw.github.com/tootedom/tootedom-mvn-repo/master/releases/org/greencheek/processio/1.0.0/processio-1.0.0-relocated-shade.jar
+	https://raw.github.com/tootedom/tootedom-mvn-repo/master/releases/org/greencheek/processio/1.0.0/processio-1.0.0.jar
 
 ## Install/Usage
 
 Use of the javaagent is by adding an appropriate **-javaagent** to jvm startup.  I.e. for tomcat, create a bin/setenv.sh like as follows:
 
 ```
-    export CATALINA_OPTS="-javaagent:$CATALINA_HOME/lib/processio-0.0.1-SNAPSHOT-relocated-shade.jar"
+    export CATALINA_OPTS="-javaagent:$CATALINA_HOME/lib/processio-1.0.0-relocated-shade.jar"
 ```
 
 Upon startup the agent will start a background thread that by default reads the /procfs files system every minute (sample time/frequency)
@@ -103,6 +103,6 @@ You can also change the name of the bean (**jmxbeanname**) and/or the domain (**
 * jmxdomainname : Change the domain under which the bean is registered
 
 ```
-   export CATALINA_OPTS="-javaagent:$CATALINA_HOME/lib/processio-0.0.1-SNAPSHOT-relocated-shade.jar=frequency=300000,jmxbeanname=io,jmxdomainname=my.domain
+   export CATALINA_OPTS="-javaagent:$CATALINA_HOME/lib/processio-1.0.0-relocated-shade.jar=frequency=300000,jmxbeanname=io,jmxdomainname=my.domain
 ```
 
